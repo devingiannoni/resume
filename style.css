@@ -1,0 +1,57 @@
+@font-face {
+    font-family: "LAZER 84";
+    src: url("./Lazer84.ttf");
+}
+
+body {
+  background-image: url("vaporWave.jpg");
+}
+
+h3 {
+  text-align: center;
+  font-family: "LAZER 84";
+  color: rgb(45, 181, 182);
+}
+
+a {
+  color: rgb(45, 181, 182);
+}
+
+audio {
+  width: 100%;
+}
+
+.everythingContainer {
+  border: 2px solid rgb(227, 26, 122);
+  border-radius: 10px;
+  background-color: rgb(32, 14, 77);
+  background-image: linear-gradient(-45deg, rgb(32, 14, 77), rgb(45, 181, 182));
+  box-shadow: 5px 5px 5px rgb(45, 181, 182);
+  margin: 2%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.nestedContainers {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  border: 2px solid rgb(227, 26, 122);
+  border-radius: 10px;
+  background-color: rgb(32, 14, 77);
+  color: rgb(45, 181, 182);
+  box-shadow: 5px 5px 5px rgb(45, 181, 182);
+  font-size: 12px;
+  font-family: "Andale Mono";
+  padding: 2%;
+}
+
+.badge {
+  font-weight: bold;
+  font-style: italic;
+  font-size: 14px;
+  background-color: rgb(45, 181, 182);
+  color: rgb(32, 14, 77);
+  margin: 2px;
+  border: 1px solid rgb(227, 26, 122);
+  box-shadow: 2px 2px 2px rgb(45, 181, 182);
+}
