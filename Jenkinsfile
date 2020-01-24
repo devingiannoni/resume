@@ -8,6 +8,7 @@ pipeline {
                 sh 'whoami'
                 sh 'docker --version'
                 sh 'git --version'
+                sh 'echo ${env}'
             }
         }
         stage('Deploy') {
