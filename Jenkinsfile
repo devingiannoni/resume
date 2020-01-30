@@ -1,5 +1,47 @@
 #!/groovy
 
+stage('checkout') {
+    node('master') {
+        checkout scm
+    }
+}
+
+stage('docker build') {
+    node('master') {
+        try {
+            echo "build fired"
+            // unstash name: "artifacts"
+            // image = docker.build('artifactory:5001/acts:' + pom.version)
+        } catch (e) {
+            notifyOnError()
+            throw e
+        }
+    }
+}
+
+stage('docker push') {
+    node('master') {
+        try {
+            echo "push fired"
+        } catch (e) {
+            notifyOnError()
+            throw e
+        }
+    }
+}
+
+stage('k8 deploy'){
+    node('master'){
+        try {
+
+        }
+        catch (e) {
+            notifyOnError()
+            throw e
+        }
+    }
+}
+
 stage('echo vars') {
    node('master') {
       sh "docker --version"
@@ -43,49 +85,6 @@ stage('echo vars') {
       echo "SVN_URL ${env.SVN_URL}"
    }
 }
-
-stage('checkout') {
-    node('master') {
-        checkout scm
-    }
-}
-
-stage('docker build') {
-    node('master') {
-        try {
-            echo "build fired"
-            // unstash name: "artifacts"
-            // image = docker.build('artifactory:5001/acts:' + pom.version)
-        } catch (e) {
-            notifyOnError()
-            throw e
-        }
-    }
-}
-
-stage('docker push') {
-    node('master') {
-        try {
-            echo "push fired"
-        } catch (e) {
-            notifyOnError()
-            throw e
-        }
-    }
-}
-
-stage('k8 deploy'){
-    node('master'){
-        try {
-
-        }
-        catch (e) {
-            notifyOnError()
-            throw e
-        }
-    }
-}
-
 // def notifyOnFixed() {
 //     def currentProblem = currentBuild?.result != 'SUCCESS'
 //     def previousProblem = currentBuild?.previousBuild?.result != 'SUCCESS'
