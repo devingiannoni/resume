@@ -12,7 +12,6 @@ stage('checkout') {
             userRemoteConfigs: [[url: 'https://github.com/devingiannoni/resume']]
         ]
       )
-      echo "${env.getEnvironment()}"
    }
 }
 
