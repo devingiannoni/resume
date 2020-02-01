@@ -39,19 +39,21 @@ stage('tests') {
 
 stage('build') {
     node('master') {
-
+        sh "docker build -t devngee/resume:vaporwave ."
     }
 }
 
 stage('push') {
     node('master') {
-
+        sh "docker push devngee/resume:vaporwave"
     }
 }
 
 stage('deploy'){
     node('master'){
-
+        sh "docker stop devngee/resume:vaporwave"
+        sh "docker pull devngee/resume:vaporwave"
+        sh "docker run -p 80:80 devngee/resume:vaporwave"
     }
 }
 
