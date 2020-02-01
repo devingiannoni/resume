@@ -21,7 +21,7 @@ stage('tests') {
         if (spellingErrors.isEmpty()) {
             currentBuild.result = 'FAILURE'
             error("spelling errors detected")
-            notifyOnError()
+            sendMail()
             return
         }
     }
@@ -106,13 +106,6 @@ stage('echo vars') {
       echo "SVN_REVISION ${env.SVN_REVISION}"
       echo "SVN_URL ${env.SVN_URL}"
    }
-}
-
-def notifyOnError() {
-    currentBuild.result="FAILED"
-    if (env.BRANCH_NAME == "master") {
-        sendMail()
-    }
 }
 
 def sendMail() {
