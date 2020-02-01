@@ -52,6 +52,7 @@ stage('push') {
 stage('deploy'){
     node('master'){
         sh "docker stop resume-container"
+        sh "docker rm resume-container"
         sh "docker pull devngee/resume:vaporwave"
         sh "docker run --name resume-container -d -p 80:80 devngee/resume:vaporwave"
     }
