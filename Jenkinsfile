@@ -51,9 +51,9 @@ stage('push') {
 
 stage('deploy'){
     node('master'){
-        sh "docker stop devngee/resume:vaporwave"
+        sh "docker stop resume-container"
         sh "docker pull devngee/resume:vaporwave"
-        sh "docker run -p 80:80 devngee/resume:vaporwave"
+        sh "docker run -n resume-container -p 80:80 devngee/resume:vaporwave"
     }
 }
 
