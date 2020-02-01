@@ -19,15 +19,14 @@ stage('tests') {
     node('master') {
         def spellingErrors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
         if (spellingErrors.isEmpty()) {
-            currentBuild.result = 'FAILURE'
-            error("spelling errors detected")
             emailext (
                 subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
                 body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
                 to: "devingiannoni@gmail.com",
                 from: "root@321computerrepair.com"
             )
-            return
+            currentBuild.result = 'FAILURE'
+            error("spelling errors detected")
         }
     }
 }
