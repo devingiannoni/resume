@@ -11,12 +11,6 @@ checkout(
     ]
 )
 
-# stage('checkout') {
-#    node('master') {
-#        checkout scm
-#    }
-# }
-
 stage('docker build') {
     node('master') {
         try {
