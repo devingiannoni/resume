@@ -18,7 +18,7 @@ stage('tests') {
     node('master') {
         try {
             sh "aspell --mode=html list < index.html"
-            def spellingErrors = sh "aspell list < index.html"
+            def spellingErrors = sh (script: 'aspell list < index.html', returnStdout: true)
             echo "$spellingErrors"
         } catch (e) {
             notifyOnError()
@@ -26,6 +26,8 @@ stage('tests') {
         }
     }
 }
+
+
 stage('docker build') {
     node('master') {
         try {
