@@ -19,7 +19,17 @@ stage('tests') {
     node('master') {
         def spellingErrors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
         if (spellingErrors.isEmpty()) {
-            sendMail()
+            mail(
+                bcc: '',
+                body: "spelling errors in master",
+                cc: '',
+                charset: 'UTF-8',
+                from: '',
+                mimeType: 'text/html',
+                replyTo: '',
+                subject: "spelling errors in master",
+                to: "devingiannoni@gmail.com"
+            )
             currentBuild.result = 'FAILURE'
             error("spelling errors detected")
         }
@@ -105,18 +115,4 @@ stage('echo vars') {
       echo "SVN_REVISION ${env.SVN_REVISION}"
       echo "SVN_URL ${env.SVN_URL}"
    }
-}
-
-def sendMail() {
-    mail(
-            bcc: '',
-            body: "spelling errors in master",
-            cc: '',
-            charset: 'UTF-8',
-            from: '',
-            mimeType: 'text/html',
-            replyTo: '',
-            subject: "spelling errors in master",
-            to: "devingiannoni@gmail.com"
-        )
 }
