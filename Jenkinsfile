@@ -1,15 +1,5 @@
 #!/groovy
 
-stage('vars') {
-   node('master') {
-      sh "docker --version"
-      sh "git --version"
-      sh "aspell -v"
-      echo "${env.getEnvironment()}"
-   }
-}
-
-
 stage('checkout') {
     node('master') {
         checkout(
@@ -66,4 +56,13 @@ stage('deploy'){
         sh "docker pull devngee/resume:vaporwave"
         sh "docker run --name resume-container -d -p 80:80 devngee/resume:vaporwave"
     }
+}
+
+stage('vars') {
+   node('master') {
+      sh "docker --version"
+      sh "git --version"
+      sh "aspell -v"
+      echo "${env.getEnvironment()}"
+   }
 }
