@@ -17,7 +17,7 @@ stage('checkout') {
 stage('tests') {
     node('master') {
         def spellingErrors = sh (script: 'aspell list < index.html', returnStdout: true)
-        echo spellingErrors.size()
+        echo spellingErrors.isEmpty()
     }
 }
 
