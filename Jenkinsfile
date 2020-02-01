@@ -14,11 +14,13 @@ stage('checkout') {
       )
    }
 }
+
 stage('tests') {
     node('master') {
         def spellingErrors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
         if (!spellingErrors.isEmpty()) {
-            echo "tests failed"
+            currentBuild.result = 'FAILURE'
+            return
         }
     }
 }
