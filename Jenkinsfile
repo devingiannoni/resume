@@ -19,17 +19,7 @@ stage('tests') {
     node('master') {
         def spellingErrors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
         if (spellingErrors.isEmpty()) {
-            mail(
-                    bcc: '',
-                    body: "<p>your body</p>",
-                    cc: '',
-                    charset: 'UTF-8',
-                    from: '',
-                    mimeType: 'text/html',
-                    replyTo: '',
-                    subject: "your subject",
-                    to: "devingiannoni@gmail.com"
-            )
+            sendMail()
             currentBuild.result = 'FAILURE'
             error("spelling errors detected")
         }
@@ -118,7 +108,15 @@ stage('echo vars') {
 }
 
 def sendMail() {
-    emailext to: 'devingiannoni@gmail.com',
-    subject: '${DEFAULT_SUBJECT}',
-    body: '${DEFAULT_CONTENT}'
+    mail(
+            bcc: '',
+            body: "${DEFAULT_CONTENT}",
+            cc: '',
+            charset: 'UTF-8',
+            from: '',
+            mimeType: 'text/html',
+            replyTo: '',
+            subject: "${DEFAULT_SUBJECT}",
+            to: "devingiannoni@gmail.com"
+        )
 }
