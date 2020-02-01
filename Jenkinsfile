@@ -21,6 +21,7 @@ stage('tests') {
         if (!spellingErrors.isEmpty()) {
             currentBuild.result = 'FAILURE'
             error("spelling errors detected")
+            notifyOnError()
             return
         }
     }
@@ -106,23 +107,16 @@ stage('echo vars') {
       echo "SVN_URL ${env.SVN_URL}"
    }
 }
-// def notifyOnFixed() {
-//     def currentProblem = currentBuild?.result != 'SUCCESS'
-//     def previousProblem = currentBuild?.previousBuild?.result != 'SUCCESS'
-//     if((currentProblem || previousProblem) && env.BRANCH_NAME == "master") {
-//         sendMail()
-//     }
-// }
 
-// def notifyOnError() {
-//     currentBuild.result="FAILED"
-//     if (env.BRANCH_NAME == "master") {
-//         sendMail()
-//     }
-// }
+def notifyOnError() {
+    currentBuild.result="FAILED"
+    if (env.BRANCH_NAME == "master") {
+        sendMail()
+    }
+}
 
-// def sendMail() {
-//     emailext to: 'softwareteam@somalogic.com',
-//             subject: '${DEFAULT_SUBJECT}',
-//             body: '${DEFAULT_CONTENT}'
-// }
+def sendMail() {
+    emailext to: 'devingiannoni@gmail.com',
+    subject: '${DEFAULT_SUBJECT}',
+    body: '${DEFAULT_CONTENT}'
+}
