@@ -27,7 +27,7 @@ stage('tests') {
                 from: '',
                 mimeType: 'text/html',
                 replyTo: '',
-                subject: "spelling errors in master",
+                subject: "something bad happened",
                 to: "devingiannoni@gmail.com"
             )
             currentBuild.result = 'FAILURE'
@@ -37,43 +37,25 @@ stage('tests') {
 }
 
 
-stage('docker build') {
+stage('build') {
     node('master') {
-        try {
-            echo "build fired"
-            // unstash name: "artifacts"
-            // image = docker.build('artifactory:5001/acts:' + pom.version)
-        } catch (e) {
-            notifyOnError()
-            throw e
-        }
+
     }
 }
 
-stage('docker push') {
+stage('push') {
     node('master') {
-        try {
-            echo "push fired"
-        } catch (e) {
-            notifyOnError()
-            throw e
-        }
+
     }
 }
 
-stage('k8 deploy'){
+stage('deploy'){
     node('master'){
-        try {
 
-        }
-        catch (e) {
-            notifyOnError()
-            throw e
-        }
     }
 }
 
-stage('echo vars') {
+stage('vars') {
    node('master') {
       sh "docker --version"
       sh "git --version"
