@@ -21,7 +21,12 @@ stage('tests') {
         if (spellingErrors.isEmpty()) {
             currentBuild.result = 'FAILURE'
             error("spelling errors detected")
-            mail bcc: '', body: 'in master', cc: '', from: '', replyTo: '', subject: 'errors', to: 'devingiannoni@gmail.com'
+            emailext (
+                subject: "Job '${env.JOB_NAME} ${env.BUILD_NUMBER}'",
+                body: """<p>Check console output at <a href="${env.BUILD_URL}">${env.JOB_NAME}</a></p>""",
+                to: "devingiannoni@gmail.com",
+                from: "root@321computerrepair.com"
+            )
             return
         }
     }
