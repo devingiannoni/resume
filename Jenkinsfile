@@ -110,13 +110,13 @@ stage('echo vars') {
 def sendMail() {
     mail(
             bcc: '',
-            body: "${DEFAULT_CONTENT}",
+            body: "spelling errors in master",
             cc: '',
             charset: 'UTF-8',
             from: '',
             mimeType: 'text/html',
             replyTo: '',
-            subject: "${DEFAULT_SUBJECT}",
+            subject: "spelling errors in master",
             to: "devingiannoni@gmail.com"
         )
 }
