@@ -17,8 +17,7 @@ stage('checkout') {
 stage('tests') {
     node('master') {
         try {
-            echo "tests fired"
-                sh "aspell -c index.html"
+            sh "aspell --mode=html list < index.html"
         } catch (e) {
             notifyOnError()
             throw e
