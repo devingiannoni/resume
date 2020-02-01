@@ -21,7 +21,7 @@ stage('tests') {
         if (spellingErrors.isEmpty()) {
             currentBuild.result = 'FAILURE'
             error("spelling errors detected")
-            sendMail()
+            sh("echo 'Subject: spelling errors detected in latests master branch update' | sendmail devingiannoni@gmail.com")            
             return
         }
     }
