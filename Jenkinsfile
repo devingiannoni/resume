@@ -4,7 +4,7 @@ stage('vars') {
    node('master') {
       sh "docker --version"
       sh "git --version"
-      echo env.getEnvironment()
+      echo "{env.getEnvironment()}"
       echo "BRANCH_NAME ${env.BRANCH_NAME}"
       echo "CHANGE_ID ${env.CHANGE_ID}"
       echo "CHANGE_URL ${env.CHANGE_URL}"
