@@ -22,7 +22,6 @@ stage('tests') {
             currentBuild.result = 'FAILURE'
             error("spelling errors detected")
             sendMail()
-            sh "echo 'Subject: spelling errors detected in master branch' | sendmail devingiannoni@gmail.com"           
             return
         }
     }
