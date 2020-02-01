@@ -1,5 +1,20 @@
 #!/groovy
 
+stage('checkout') {
+    node('master') {
+        checkout(
+        [
+            $class: 'GitSCM', 
+            branches: [[name: '*/master']], 
+            doGenerateSubmoduleConfigurations: false, 
+            extensions: [], 
+            submoduleCfg: [], 
+            userRemoteConfigs: [[url: 'https://github.com/devingiannoni/resume']]
+        ]
+      )
+   }
+}
+
 checkout(
     [
         $class: 'GitSCM', 
