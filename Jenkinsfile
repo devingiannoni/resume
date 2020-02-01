@@ -21,6 +21,7 @@ stage('tests') {
         if (spellingErrors.isEmpty()) {
             currentBuild.result = 'FAILURE'
             error("spelling errors detected")
+            emailext body: 'spelling errors were committed to the master branch', subject: 'spelling errors yo', to: 'devingiannoni@gmail.com'
             sendMail()
             return
         }
