@@ -21,7 +21,7 @@ stage('tests') {
         if (!spellingErrors.isEmpty()) {
             mail(
                 bcc: '',
-                body: "spelling errors in master",
+                body: "spelling errors in master: ${spellingErrors}",
                 cc: '',
                 charset: 'UTF-8',
                 from: '',
