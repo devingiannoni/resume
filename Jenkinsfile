@@ -18,6 +18,7 @@ stage('tests') {
     node('master') {
         try {
             sh "aspell --mode=html list < index.html"
+            sh "aspell html list < index.html"
         } catch (e) {
             notifyOnError()
             throw e
