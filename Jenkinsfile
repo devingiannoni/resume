@@ -19,7 +19,7 @@ stage('tests') {
         try {
             sh "aspell --mode=html list < index.html"
             def spellingErrors = sh (script: 'aspell list < index.html', returnStdout: true)
-            echo "$spellingErrors"
+            echo "${spellingErrors}"
         } catch (e) {
             notifyOnError()
             throw e
