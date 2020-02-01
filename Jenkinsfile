@@ -18,7 +18,7 @@ stage('tests') {
     node('master') {
         try {
             sh "aspell --mode=html list < index.html"
-            sh "aspell list < index.html"
+            def spellingErrors = sh "aspell list < index.html"
         } catch (e) {
             notifyOnError()
             throw e
