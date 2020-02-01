@@ -20,6 +20,7 @@ stage('tests') {
         def spellingErrors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
         if (spellingErrors.isEmpty()) {
             currentBuild.result = 'FAILURE'
+            error("spelling errors detected")
             return
         }
     }
