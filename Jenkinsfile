@@ -18,12 +18,13 @@ stage('tests') {
     node('master') {
         try {
             echo "tests fired"
-                sh 'aspell -c index.html'
+                sh "aspell -c index.html"
         } catch (e) {
             notifyOnError()
             throw e
         }
-  
+    }
+}
 stage('docker build') {
     node('master') {
         try {
