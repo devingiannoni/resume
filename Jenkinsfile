@@ -5,14 +5,14 @@ def workerNode = 'master'
 node(workerNode) {
 
     stage('checkout') {
-        checkout
-        ([
+        checkout([
             $class: 'GitSCM', 
             branches: [[name: '*/master']], 
             doGenerateSubmoduleConfigurations: false, 
             extensions: [], 
             submoduleCfg: [], 
-            userRemoteConfigs: [[url: 'https://github.com/devingiannoni/resume']]
+            userRemoteConfigs: 
+            [[url: 'https://github.com/devingiannoni/resume']]
         ])
     }
 
