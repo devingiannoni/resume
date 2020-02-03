@@ -42,7 +42,7 @@ node(workerNode) {
 
 
     stage('build') {
-        sh "docker build -t ${imageRepo}:${imageTab} ."
+        sh "docker build -t ${imageRepo}:${imageTag} ."
     }
 
     stage('push') {
