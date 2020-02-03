@@ -8,6 +8,9 @@ def imageRepo = 'devngee/resume'
 def imageTag = 'vaporwave'
 def liveContainer = 'resume-container'
 
+def emailBody = ''
+def emailSubject = ''
+
 node(workerNode) {
 
     stage('checkout') {
@@ -69,13 +72,13 @@ node(workerNode) {
 def sendMail() {
     mail(
         bcc: '',
-        body: "${checkoutUrl} has errors in ${checkoutBranch}: ${errors}",
+        body: "${emailBody}",
         cc: '',
         charset: 'UTF-8',
         from: '',
         mimeType: 'text/html',
         replyTo: '',
-        subject: "${checkoutUrl} build failed",
+        subject: "${emailSubject}",
         to: "${emailTo}"
     )
 }
