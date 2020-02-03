@@ -73,6 +73,7 @@ node(workerNode) {
         } 
 
     }
+}
 
 def sendMail(emailTo, emailSubject, emailBody) {
             mail(
@@ -80,5 +81,4 @@ def sendMail(emailTo, emailSubject, emailBody) {
                 subject: "${emailSubject}",
                 to: "${emailTo}"
             )
-}
 }
