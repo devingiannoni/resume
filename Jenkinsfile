@@ -18,7 +18,7 @@ stage('checkout') {
 }
 
 stage('tests') {
-    node(${workerNode}) {
+    node(workerNode) {
         def spellingErrors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
         if (!spellingErrors.isEmpty()) {
             mail(
