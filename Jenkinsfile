@@ -1,5 +1,7 @@
 #!/groovy
 
+echo "${env.getEnvironment()}"
+
 def workerNode = 'master'
 def checkoutUrl = 'https://github.com/devingiannoni/resume'
 def checkoutBranch = '*/master'
@@ -30,11 +32,15 @@ node(workerNode) {
     }
 
     stage('tests') {
+        try {
+        
+        } catch (e) {
+            sendMail(emailTo, emailSubject, emailBody)
+        }
+        
         def errors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
         if (!errors.isEmpty()) {
-            sendMail(emailTo, emailSubject, emailBody)
-            currentBuild.result = 'FAILURE'
-            error("errors detected")
+
         }
     }
 
@@ -67,15 +73,6 @@ node(workerNode) {
         } 
 
     }
-
-    stage('vars') {
-        sh "docker --version"
-        sh "git --version"
-        sh "aspell -v"
-        echo "${env.getEnvironment()}"
-    }
-
-}
 
 def sendMail(emailTo, emailSubject, emailBody) {
             mail(
