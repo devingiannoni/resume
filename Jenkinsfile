@@ -1,7 +1,6 @@
 #!/groovy
 
 def workerNode = 'master'
-def checkoutUrl = 'https://github.com/devingiannoni/resume'
 
 node(workerNode) {
 
