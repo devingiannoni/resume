@@ -34,7 +34,7 @@ node(workerNode) {
                 to: "${emailTo}"
             )
             currentBuild.result = 'FAILURE'
-            error("spelling errors detected")
+            error("errors detected")
         }
     }
 
