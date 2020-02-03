@@ -25,14 +25,14 @@ node(workerNode) {
                 [[url: checkoutUrl]]
             ])
         } catch(e) {
-            sendMail()
+            sendMail(emailTo, emailSubject, emailBody)
         }
     }
 
     stage('tests') {
         def errors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
         if (!errors.isEmpty()) {
-            sendMail()
+            sendMail(emailTo, emailSubject, emailBody)
             currentBuild.result = 'FAILURE'
             error("errors detected")
         }
@@ -44,7 +44,7 @@ node(workerNode) {
             sh "docker build -t ${imageRepo}:${imageTag} ."
         } 
         catch (e) {
-            sendMail()
+            sendMail(emailTo, emailSubject, emailBody)
         } 
     }
 
@@ -52,7 +52,7 @@ node(workerNode) {
         try {
             sh "docker push ${imageRepo}:${imageTag}"
         } catch (e) {
-            sendMail()
+            sendMail(emailTo, emailSubject, emailBody)
         }
     }
 
@@ -63,7 +63,7 @@ node(workerNode) {
             sh "docker pull ${imageRepo}:${imageTag}"
             sh "docker run --name ${liveContainer} -d -p 80:80 ${imageRepo}:${imageTag}"
         } catch (e) {
-            sendMail()
+            sendMail(emailTo, emailSubject, emailBody)
         } 
 
     }
@@ -73,15 +73,14 @@ node(workerNode) {
         sh "git --version"
         sh "aspell -v"
         echo "${env.getEnvironment()}"
-        sendMail(emailTo, emailSubject, emailBody)
     }
 
 }
 
 def sendMail(emailTo, emailSubject, emailBody) {
             mail(
-                body: "123",
-                subject: "something bad happened",
+                body: "${emailBody}",
+                subject: "${emailSubject}",
                 to: "${emailTo}"
             )
 }
