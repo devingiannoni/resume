@@ -49,7 +49,8 @@ node(workerNode) {
 
 
     stage('build') {
-        sh "docker build -t ${imageRepo}:${imageTag} ."
+        try {sh "docker build -t ${imageRepo}:${imageTag} ."} 
+        catch (e) {sendMail()} 
     }
 
     stage('push') {
