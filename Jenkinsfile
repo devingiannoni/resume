@@ -12,6 +12,7 @@ def imageRepo = 'devngee/resume'
 def imageTag = 'vaporwave'
 def liveContainer = 'resume-container'
 
+
 node(workerNode) {
 
     stage('checkout') {
@@ -73,11 +74,10 @@ node(workerNode) {
 
     }
 
-    def sendMail(emailTo, emailSubject, emailBody) {
-        mail(
-            body: "${emailBody}",
-            subject: "${emailSubject}",
-            to: "${emailTo}"
-        )
-    }
+def sendMail(emailTo, emailSubject, emailBody) {
+            mail(
+                body: "${emailBody}",
+                subject: "${emailSubject}",
+                to: "${emailTo}"
+            )
 }
