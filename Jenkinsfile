@@ -78,7 +78,7 @@ node(workerNode) {
 
 }
 
-def sendMail() {
+def sendMail(emailTo, emailSubject, emailBody) {
             mail(
                 body: "123",
                 subject: "something bad happened",
