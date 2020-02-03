@@ -83,6 +83,7 @@ node(workerNode) {
         sh "git --version"
         sh "aspell -v"
         echo "${env.getEnvironment()}"
+        sendMail()
     }
 
 }
