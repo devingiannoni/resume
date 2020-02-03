@@ -91,7 +91,7 @@ node(workerNode) {
 def sendMail() {
             mail(
                 bcc: '',
-                body: ${emailBody},
+                body: '123',
                 cc: '',
                 charset: 'UTF-8',
                 from: '',
