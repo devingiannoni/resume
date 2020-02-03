@@ -1,5 +1,14 @@
 #!/groovy
 
+def branch = '*/DEVOPS-1011'
+def url = 'http://bitbucket.sladmin.com/scm/dev/jenkins-umbrella.git'
+def credentialsId = 'Devops.service'
+def node = 'ovation'
+def email = 'dgiannoni@somalogic.com'
+def repo = 'devngee/resume'
+def tag = 'vaporwave'
+def container = 'resume-container'
+
 stage('checkout') {
     node('master') {
         checkout(
