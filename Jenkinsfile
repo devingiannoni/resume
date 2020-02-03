@@ -91,7 +91,7 @@ node(workerNode) {
 def sendMail() {
             mail(
                 bcc: '',
-                body: "spelling errors in master: ${spellingErrors}",
+                body: "errors
                 cc: '',
                 charset: 'UTF-8',
                 from: '',
