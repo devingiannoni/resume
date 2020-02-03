@@ -4,6 +4,8 @@ def workerNode = 'master'
 def checkoutUrl = 'https://github.com/devingiannoni/resume'
 def checkoutBranch = '*/master'
 def emailTo = 'devingiannoni@gmail.com'
+def imageRepo = 'devngee/resume'
+def imageTag = 'vaporwave'
 
 node(workerNode) {
 
@@ -40,7 +42,7 @@ node(workerNode) {
 
 
     stage('build') {
-        sh "docker build -t devngee/resume:vaporwave ."
+        sh "docker build -t ${imageRepo}:${imageTab} ."
     }
 
     stage('push') {
