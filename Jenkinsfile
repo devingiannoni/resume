@@ -3,7 +3,7 @@
 def workerNode = 'master'
 
 stage('checkout') {
-    node(${workerNode}) {
+    node('master') {
         checkout(
         [
             $class: 'GitSCM', 
@@ -18,7 +18,7 @@ stage('checkout') {
 }
 
 stage('tests') {
-    node(workerNode) {
+    node('master') {
         def spellingErrors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
         if (!spellingErrors.isEmpty()) {
             mail(
@@ -40,19 +40,19 @@ stage('tests') {
 
 
 stage('build') {
-    node(${workerNode}) {
+    node('master') {
         sh "docker build -t devngee/resume:vaporwave ."
     }
 }
 
 stage('push') {
-    node(${workerNode}) {
+    node('master') {
         sh "docker push devngee/resume:vaporwave"
     }
 }
 
 stage('deploy'){
-    node(${workerNode}){
+    node('master'){
         sh "docker stop resume-container"
         sh "docker rm resume-container"
         sh "docker pull devngee/resume:vaporwave"
@@ -61,7 +61,7 @@ stage('deploy'){
 }
 
 stage('vars') {
-   node(${workerNode}) {
+   node('master') {
       sh "docker --version"
       sh "git --version"
       sh "aspell -v"
