@@ -32,17 +32,7 @@ node(workerNode) {
     stage('tests') {
         def errors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
         if (!errors.isEmpty()) {
-            mail(
-                bcc: '',
-                body: "${checkoutUrl} has errors in ${checkoutBranch}: ${errors}",
-                cc: '',
-                charset: 'UTF-8',
-                from: '',
-                mimeType: 'text/html',
-                replyTo: '',
-                subject: "${checkoutUrl} build failed",
-                to: "${emailTo}"
-            )
+            sendMail()
             currentBuild.result = 'FAILURE'
             error("errors detected")
         }
@@ -90,8 +80,8 @@ node(workerNode) {
 
 def sendMail() {
             mail(
-                body: '123',
+                body: "123",
                 subject: "something bad happened",
-                to: "devingiannoni@gmail.com"
+                to: "${emailTo}"
             )
 }
