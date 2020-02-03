@@ -8,21 +8,24 @@ def imageRepo = 'devngee/resume'
 def imageTag = 'vaporwave'
 def liveContainer = 'resume-container'
 
-def emailBody = ''
-def emailSubject = ''
-
 node(workerNode) {
 
     stage('checkout') {
-        checkout([
-            $class: 'GitSCM', 
-            branches: [[name: checkoutBranch]], 
-            doGenerateSubmoduleConfigurations: false, 
-            extensions: [], 
-            submoduleCfg: [], 
-            userRemoteConfigs: 
-            [[url: checkoutUrl]]
-        ])
+        try {
+            checkout([
+                $class: 'GitSCM', 
+                branches: [[name: checkoutBranch]], 
+                doGenerateSubmoduleConfigurations: false, 
+                extensions: [], 
+                submoduleCfg: [], 
+                userRemoteConfigs: 
+                [[url: checkoutUrl]]
+            ])
+        } catch(e) {
+            def emailBody = ''
+            def emailSubject = ''
+            sendMail()
+        }
     }
 
     stage('tests') {
