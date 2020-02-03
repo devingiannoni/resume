@@ -3,7 +3,7 @@
 def workerNode = 'master'
 
 stage('checkout') {
-    node('master') {
+    node(workerNode) {
         checkout(
         [
             $class: 'GitSCM', 
