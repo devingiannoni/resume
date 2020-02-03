@@ -65,3 +65,17 @@ node(workerNode) {
     }
 
 }
+
+def sendMail() {
+    mail(
+        bcc: '',
+        body: "${checkoutUrl} has errors in ${checkoutBranch}: ${errors}",
+        cc: '',
+        charset: 'UTF-8',
+        from: '',
+        mimeType: 'text/html',
+        replyTo: '',
+        subject: "${checkoutUrl} build failed",
+        to: "${emailTo}"
+    )
+}
