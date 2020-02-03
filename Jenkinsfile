@@ -1,7 +1,5 @@
 #!/groovy
 
-def node = 'master'
-
 stage('checkout') {
     def node = 'master'
     node('master') {
