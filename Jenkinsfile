@@ -56,14 +56,23 @@ node(workerNode) {
     }
 
     stage('push') {
-        sh "docker push ${imageRepo}:${imageTag}"
+        try {
+            sh "docker push ${imageRepo}:${imageTag}"
+        } catch (e) {
+            sendMail()
+        }
     }
 
     stage('deploy'){
-        sh "docker stop ${liveContainer}"
-        sh "docker rm ${liveContainer}"
-        sh "docker pull ${imageRepo}:${imageTag}"
-        sh "docker run --name ${liveContainer} -d -p 80:80 ${imageRepo}:${imageTag}"
+        try {
+            sh "docker stop ${liveContainer}"
+            sh "docker rm ${liveContainer}"
+            sh "docker pull ${imageRepo}:${imageTag}"
+            sh "docker run --name ${liveContainer} -d -p 80:80 ${imageRepo}:${imageTag}"
+        } catch (e) {
+            sendMail()
+        } 
+
     }
 
     stage('vars') {
@@ -78,13 +87,13 @@ node(workerNode) {
 def sendMail() {
     mail(
         bcc: '',
-        body: '${DEFAULT_SUBJECT}',
+        body: "${DEFAULT_SUBJECT}",
         cc: '',
         charset: 'UTF-8',
         from: '',
         mimeType: 'text/html',
         replyTo: '',
-        subject: '${DEFAULT_CONTENT}',
+        subject: "${DEFAULT_CONTENT}",
         to: "${emailTo}"
     )
 }
