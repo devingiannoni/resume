@@ -13,7 +13,7 @@ node(workerNode) {
             doGenerateSubmoduleConfigurations: false, 
             extensions: [], 
             submoduleCfg: [], 
-            userRemoteConfigs: [[url: checkoutUrl]]
+            userRemoteConfigs: [[url: ${checkoutUrl}]]
         ])
     }
 
