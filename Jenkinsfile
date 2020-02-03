@@ -81,3 +81,4 @@ def sendMail(emailTo, emailSubject, emailBody) {
                 to: "${emailTo}"
             )
 }
+}
