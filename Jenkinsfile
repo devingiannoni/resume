@@ -1,68 +1,70 @@
 #!/groovy
 
-stage('checkout') {
-    node('master') {
-        checkout(
-        [
-            $class: 'GitSCM', 
-            branches: [[name: '*/master']], 
-            doGenerateSubmoduleConfigurations: false, 
-            extensions: [], 
-            submoduleCfg: [], 
-            userRemoteConfigs: [[url: 'https://github.com/devingiannoni/resume']]
-        ]
-      )
-   }
-}
+def branch = '*/master'
+def url = 'https://github.com/devingiannoni/resume'
+def credentialsId = ''
+def node = 'master'
+def email = 'devingiannoni@gmail.com'
+def repo = 'devngee/resume'
+def tag = 'vaporwave'
+def container = 'resume-container'
 
-stage('tests') {
-    node('master') {
-        def spellingErrors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
-        if (!spellingErrors.isEmpty()) {
+node (${node}) {
+
+    stage('checkout') {
+      checkout([
+          $class: 'GitSCM',
+          branches: [[name: ${branch}]],
+          doGenerateSubmoduleConfigurations: false,
+          extensions: [],
+          submoduleCfg: [],
+          userRemoteConfigs:
+            [[
+                credentialsId: '${credentialsId}', 
+                url: '${url}'
+            ]]
+        ])
+    }
+
+    stage('tests') {
+        def errors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
+        if (!errors.isEmpty()) {
             mail(
                 bcc: '',
-                body: "spelling errors in master: ${spellingErrors}",
+                body: "errors in ${branch}: ${errors}",
                 cc: '',
                 charset: 'UTF-8',
                 from: '',
                 mimeType: 'text/html',
                 replyTo: '',
-                subject: "something bad happened",
-                to: "devingiannoni@gmail.com"
+                subject: "build failed",
+                to: "${email}"
             )
             currentBuild.result = 'FAILURE'
-            error("spelling errors detected")
+            error(${error})
         }
     }
-}
 
 
-stage('build') {
-    node('master') {
-        sh "docker build -t devngee/resume:vaporwave ."
+    stage('build') {
+        sh "docker build -t ${repo}:${tag} ."
     }
-}
 
-stage('push') {
-    node('master') {
-        sh "docker push devngee/resume:vaporwave"
+    stage('push') {
+        sh "docker push ${repo}:${tag}"
     }
-}
 
-stage('deploy'){
-    node('master'){
-        sh "docker stop resume-container"
-        sh "docker rm resume-container"
-        sh "docker pull devngee/resume:vaporwave"
-        sh "docker run --name resume-container -d -p 80:80 devngee/resume:vaporwave"
+    stage('deploy'){
+        sh "docker stop ${container}"
+        sh "docker rm ${container}"
+        sh "docker pull ${repo}:${tag}"
+        sh "docker run --name ${container} -d -p 80:80 ${repo}:${tag}"
     }
-}
 
-stage('vars') {
-   node('master') {
-      sh "docker --version"
-      sh "git --version"
-      sh "aspell -v"
-      echo "${env.getEnvironment()}"
-   }
+    stage('vars') {
+        sh "docker --version"
+        sh "git --version"
+        sh "aspell -v"
+        echo "${env.getEnvironment()}"
+    }
 }
