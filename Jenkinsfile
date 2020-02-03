@@ -19,7 +19,7 @@ node(workerNode) {
     }
 
     stage('tests') {
-        def errors
+        def errors = ''
         if (!errors.isEmpty()) {
             mail(
                 bcc: '',
