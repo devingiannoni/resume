@@ -90,14 +90,8 @@ node(workerNode) {
 
 def sendMail() {
     mail(
-        bcc: '',
         body: '${DEFAULT_SUBJECT}',
-        cc: '',
-        charset: 'UTF-8',
-        from: '',
-        mimeType: 'text/html',
-        replyTo: '',
         subject: '${DEFAULT_CONTENT}',
-        to: "${emailTo}"
+        to: '${emailTo}'
     )
 }
