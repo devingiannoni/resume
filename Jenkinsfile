@@ -73,11 +73,7 @@ node(workerNode) {
         sh "git --version"
         sh "aspell -v"
         echo "${env.getEnvironment()}"
-            mail(
-                body: "123",
-                subject: "something bad happened",
-                to: "${emailTo}"
-            )
+        sendMail(emailTo, emailSubject, emailBody)
     }
 
 }
