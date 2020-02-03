@@ -20,7 +20,7 @@ node(workerNode) {
 
     stage('tests') {
         def errors
-        if (!spellingErrors.isEmpty()) {
+        if (!errors.isEmpty()) {
             mail(
                 bcc: '',
                 body: "spelling errors in master: ${spellingErrors}",
