@@ -22,8 +22,6 @@ node(workerNode) {
                 [[url: checkoutUrl]]
             ])
         } catch(e) {
-            def emailBody = ''
-            def emailSubject = ''
             sendMail()
         }
     }
@@ -49,8 +47,12 @@ node(workerNode) {
 
 
     stage('build') {
-        try {sh "docker build -t ${imageRepo}:${imageTag} ."} 
-        catch (e) {sendMail()} 
+        try {
+            sh "docker build -t ${imageRepo}:${imageTag} ."
+        } 
+        catch (e) {
+            sendMail()
+        } 
     }
 
     stage('push') {
