@@ -1,24 +1,23 @@
 #!/groovy
 
 def workerNode = 'master'
+def checkoutUrl = 'https://github.com/devingiannoni/resume'
 
-stage('checkout') {
-    node(workerNode) {
-        checkout(
-        [
+node(workerNode) {
+
+    stage('checkout') {
+        checkout
+        ([
             $class: 'GitSCM', 
             branches: [[name: '*/master']], 
             doGenerateSubmoduleConfigurations: false, 
             extensions: [], 
             submoduleCfg: [], 
-            userRemoteConfigs: [[url: 'https://github.com/devingiannoni/resume']]
-        ]
-      )
-   }
-}
+            userRemoteConfigs: [[url: '${checkoutUrl}']]
+        ])
+    }
 
-stage('tests') {
-    node(workerNode) {
+    stage('tests') {
         def spellingErrors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
         if (!spellingErrors.isEmpty()) {
             mail(
@@ -36,35 +35,28 @@ stage('tests') {
             error("spelling errors detected")
         }
     }
-}
 
 
-stage('build') {
-    node(workerNode) {
+    stage('build') {
         sh "docker build -t devngee/resume:vaporwave ."
     }
-}
 
-stage('push') {
-    node(workerNode) {
+    stage('push') {
         sh "docker push devngee/resume:vaporwave"
     }
-}
 
-stage('deploy'){
-    node(workerNode){
+    stage('deploy'){
         sh "docker stop resume-container"
         sh "docker rm resume-container"
         sh "docker pull devngee/resume:vaporwave"
         sh "docker run --name resume-container -d -p 80:80 devngee/resume:vaporwave"
     }
-}
 
-stage('vars') {
-   node(workerNode) {
-      sh "docker --version"
-      sh "git --version"
-      sh "aspell -v"
-      echo "${env.getEnvironment()}"
-   }
+    stage('vars') {
+        sh "docker --version"
+        sh "git --version"
+        sh "aspell -v"
+        echo "${env.getEnvironment()}"
+    }
+
 }
