@@ -13,7 +13,7 @@ node(workerNode) {
             extensions: [], 
             submoduleCfg: [], 
             userRemoteConfigs: 
-            [[url: 'https://github.com/devingiannoni/resume']]
+            [[url: '${checkoutUrl}']]
         ])
     }
 
