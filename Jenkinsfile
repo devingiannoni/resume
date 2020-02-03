@@ -80,3 +80,4 @@ node(workerNode) {
             to: "${emailTo}"
         )
     }
+}
