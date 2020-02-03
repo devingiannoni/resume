@@ -18,7 +18,7 @@ stage('checkout') {
 }
 
 stage('tests') {
-    node('master') {
+    node(workerNode) {
         def spellingErrors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
         if (!spellingErrors.isEmpty()) {
             mail(
@@ -40,19 +40,19 @@ stage('tests') {
 
 
 stage('build') {
-    node('master') {
+    node(workerNode) {
         sh "docker build -t devngee/resume:vaporwave ."
     }
 }
 
 stage('push') {
-    node('master') {
+    node(workerNode) {
         sh "docker push devngee/resume:vaporwave"
     }
 }
 
 stage('deploy'){
-    node('master'){
+    node(workerNode){
         sh "docker stop resume-container"
         sh "docker rm resume-container"
         sh "docker pull devngee/resume:vaporwave"
@@ -61,7 +61,7 @@ stage('deploy'){
 }
 
 stage('vars') {
-   node('master') {
+   node(workerNode) {
       sh "docker --version"
       sh "git --version"
       sh "aspell -v"
