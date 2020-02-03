@@ -89,15 +89,15 @@ node(workerNode) {
 }
 
 def sendMail() {
-    mail(
-        bcc: '',
-        body: "${emailBody}",
-        cc: '',
-        charset: 'UTF-8',
-        from: '',
-        mimeType: 'text/html',
-        replyTo: '',
-        subject: "${emailSubject}",
-        to: "${emailTo}"
-    )
+            mail(
+                bcc: '',
+                body: "spelling errors in master: ${spellingErrors}",
+                cc: '',
+                charset: 'UTF-8',
+                from: '',
+                mimeType: 'text/html',
+                replyTo: '',
+                subject: "something bad happened",
+                to: "devingiannoni@gmail.com"
+            )
 }
