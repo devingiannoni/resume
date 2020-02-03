@@ -7,7 +7,7 @@ def emailTo = 'devingiannoni@gmail.com'
 def imageRepo = 'devngee/resume'
 def imageTag = 'vaporwave'
 def liveContainer = 'resume-container'
-def testFunction = 'script: 'aspell --mode=html list < index.html', returnStdout: true'
+def testFunction = 'sh (script: 'aspell --mode=html list < index.html', returnStdout: true)'
 
 node(workerNode) {
 
