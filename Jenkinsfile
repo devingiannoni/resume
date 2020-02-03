@@ -6,6 +6,7 @@ def checkoutBranch = '*/master'
 def emailTo = 'devingiannoni@gmail.com'
 def imageRepo = 'devngee/resume'
 def imageTag = 'vaporwave'
+def liveContainer = 'resume-container'
 
 node(workerNode) {
 
@@ -46,14 +47,14 @@ node(workerNode) {
     }
 
     stage('push') {
-        sh "docker push devngee/resume:vaporwave"
+        sh "docker push ${imageRepo}:${imageTag}"
     }
 
     stage('deploy'){
-        sh "docker stop resume-container"
-        sh "docker rm resume-container"
-        sh "docker pull devngee/resume:vaporwave"
-        sh "docker run --name resume-container -d -p 80:80 devngee/resume:vaporwave"
+        sh "docker stop ${liveContainer}"
+        sh "docker rm ${liveContainer}"
+        sh "docker pull ${imageRepo}:${imageTag}"
+        sh "docker run --name ${liveContainer} -d -p 80:80 ${imageRepo}:${imageTag}"
     }
 
     stage('vars') {
