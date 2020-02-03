@@ -31,7 +31,7 @@ node(workerNode) {
 
     stage('tests') {
         def errors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
-        if (!errors.isEmpty()) {
+        if (errors.isEmpty()) {
             sendMail(emailTo, emailSubject, emailBody)
             currentBuild.result = 'FAILURE'
             error("errors detected")
