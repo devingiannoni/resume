@@ -4,9 +4,12 @@ def workerNode = 'master'
 def checkoutUrl = 'https://github.com/devingiannoni/resume'
 def checkoutBranch = '*/master'
 def emailTo = 'devingiannoni@gmail.com'
+def emailBody = ''
+def emailSubject = ''
 def imageRepo = 'devngee/resume'
 def imageTag = 'vaporwave'
 def liveContainer = 'resume-container'
+
 
 node(workerNode) {
 
@@ -87,13 +90,13 @@ node(workerNode) {
 def sendMail() {
     mail(
         bcc: '',
-        body: "${DEFAULT_SUBJECT}",
+        body: '${DEFAULT_SUBJECT}',
         cc: '',
         charset: 'UTF-8',
         from: '',
         mimeType: 'text/html',
         replyTo: '',
-        subject: "${DEFAULT_CONTENT}",
+        subject: '${DEFAULT_CONTENT}',
         to: "${emailTo}"
     )
 }
