@@ -3,6 +3,7 @@
 def workerNode = 'master'
 def checkoutUrl = 'https://github.com/devingiannoni/resume'
 def checkoutBranch = '*/master'
+def emailTo = 'devingiannoni@gmail.com'
 
 node(workerNode) {
 
@@ -23,14 +24,14 @@ node(workerNode) {
         if (!errors.isEmpty()) {
             mail(
                 bcc: '',
-                body: "spelling errors in master: ${spellingErrors}",
+                body: "${checkoutUrl} has errors in ${checkoutBranch}: ${errors}",
                 cc: '',
                 charset: 'UTF-8',
                 from: '',
                 mimeType: 'text/html',
                 replyTo: '',
-                subject: "something bad happened",
-                to: "devingiannoni@gmail.com"
+                subject: "${checkoutUrl} build failed",
+                to: "${emailTo}"
             )
             currentBuild.result = 'FAILURE'
             error("spelling errors detected")
