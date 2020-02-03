@@ -1,7 +1,7 @@
 #!/groovy
 
 def workerNode = 'master'
-checkoutUrl = 'https://github.com/devingiannoni/resume'
+def checkoutUrl = 'https://github.com/devingiannoni/resume'
 
 node(workerNode) {
 
@@ -13,7 +13,7 @@ node(workerNode) {
             doGenerateSubmoduleConfigurations: false, 
             extensions: [], 
             submoduleCfg: [], 
-            userRemoteConfigs: [[url: $checkoutUrl]]
+            userRemoteConfigs: [[url: checkoutUrl]]
         ])
     }
 
