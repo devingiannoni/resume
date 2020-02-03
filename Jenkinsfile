@@ -2,13 +2,14 @@
 
 def workerNode = 'master'
 def checkoutUrl = 'https://github.com/devingiannoni/resume'
+def checkoutBranch = '*/master'
 
 node(workerNode) {
 
     stage('checkout') {
         checkout([
             $class: 'GitSCM', 
-            branches: [[name: '*/master']], 
+            branches: [[name: checkoutBranch]], 
             doGenerateSubmoduleConfigurations: false, 
             extensions: [], 
             submoduleCfg: [], 
@@ -18,7 +19,7 @@ node(workerNode) {
     }
 
     stage('tests') {
-        def spellingErrors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
+        def errors
         if (!spellingErrors.isEmpty()) {
             mail(
                 bcc: '',
