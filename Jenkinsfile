@@ -4,7 +4,7 @@ echo "${env.getEnvironment()}"
 
 def workerNode      = 'master'
 def checkoutUrl     = 'https://github.com/devingiannoni/resume'
-def checkoutBranch  = '*/master'
+def checkoutBranch  = 'master'
 def emailTo         = 'devingiannoni@gmail.com'
 def emailBody       = 'final test'
 def emailSubject    = 'final test'
@@ -19,7 +19,7 @@ node(workerNode) {
         try {
             checkout([
                 $class: 'GitSCM', 
-                branches: [[name: "${checkoutBranch}"]], 
+                branches: [[name: "*/${checkoutBranch}"]], 
                 doGenerateSubmoduleConfigurations: false, 
                 extensions: [], 
                 submoduleCfg: [], 
