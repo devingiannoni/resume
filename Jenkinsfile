@@ -2,15 +2,15 @@
 
 echo "${env.getEnvironment()}"
 
-def workerNode = 'master'
-def checkoutUrl = 'https://github.com/devingiannoni/resume'
-def checkoutBranch = '*/master'
-def emailTo = 'devingiannoni@gmail.com'
-def emailBody = 'final test'
-def emailSubject = 'final test'
-def imageRepo = 'devngee/resume'
-def imageTag = 'vaporwave'
-def liveContainer = 'resume-container'
+def workerNode      = 'master'
+def checkoutUrl     = 'https://github.com/devingiannoni/resume'
+def checkoutBranch  = '*/master'
+def emailTo         = 'devingiannoni@gmail.com'
+def emailBody       = 'final test'
+def emailSubject    = 'final test'
+def imageRepo       = 'devngee/resume'
+def imageTag        = 'vaporwave'
+def liveContainer   = 'resume-container'
 
 
 node(workerNode) {
