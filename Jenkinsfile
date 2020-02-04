@@ -19,7 +19,7 @@ node(workerNode) {
         try {
             checkout([
                 $class: 'GitSCM', 
-                branches: [[name: checkoutBranch]], 
+                branches: [[name: "${checkoutBranch}"]], 
                 doGenerateSubmoduleConfigurations: false, 
                 extensions: [], 
                 submoduleCfg: [], 
