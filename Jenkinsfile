@@ -33,15 +33,16 @@ node(workerNode) {
 
     stage('tests') {
         try {
-        
+            def errors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
+            if (!errors.isEmpty()) {
+                sendMail(emailTo, emailSubject, emailBody)
+                currentBuild.result = 'FAILURE'
+            }
         } catch (e) {
             sendMail(emailTo, emailSubject, emailBody)
         }
         
-        def errors = sh (script: 'aspell --mode=html list < index.html', returnStdout: true)
-        if (!errors.isEmpty()) {
 
-        }
     }
 
 
